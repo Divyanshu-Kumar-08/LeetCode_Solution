@@ -11,20 +11,20 @@
  */
 class Solution {
 public:
-    bool isValid(TreeNode* node, TreeNode* max, TreeNode* min) {
+    bool checkValid(TreeNode* node, TreeNode* high, TreeNode* low) {
         if(node == nullptr) {
             return true;
         }
 
-        if((max != nullptr && max->val <= node->val) ||
-             (min != nullptr && min->val >= node->val)) {
+        if(high != nullptr && high->val <= node->val ||
+            low != nullptr && low->val >= node->val) {
             return false;
         }
-
-        return isValid(node->left, node, min) && isValid(node->right, max, node);
+        bool left = checkValid(node->left, node, low);
+        bool right = checkValid(node->right, high, node);
+        return (left && right);
     }
-
     bool isValidBST(TreeNode* root) {
-        return isValid(root, nullptr, nullptr);
+        return checkValid(root, nullptr, nullptr);
     }
 };
