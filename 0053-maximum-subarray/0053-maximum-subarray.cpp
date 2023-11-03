@@ -1,14 +1,15 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        int curr = INT_MIN, maxsum = INT_MIN;
+        int currentMax = numeric_limits<int>::min();
+        int maxSoFar = numeric_limits<int>::min();
         for(int x : nums) {
-            if(curr < 0) {
-                curr = 0;
+            if(currentMax < 0) {
+                currentMax = 0;
             }
-            curr += x;
-            maxsum = max(maxsum, curr);
+            currentMax += x;
+            maxSoFar = max(maxSoFar, currentMax);
         }
-        return maxsum;
+        return maxSoFar;
     }
 };
